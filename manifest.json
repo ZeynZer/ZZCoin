@@ -1,0 +1,14 @@
+{
+  "name": "ZZ Bank",
+  "short_name": "ZZCoin",
+  "description": "La banque familiale ZZ",
+  "start_url": "/ZZCoin/",
+  "scope": "/ZZCoin/",
+  "display": "standalone",
+  "background_color": "#0A0F1E",
+  "theme_color": "#6C63FF",
+  "icons": [
+    { "src": "/ZZCoin/icon.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/ZZCoin/icon.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
