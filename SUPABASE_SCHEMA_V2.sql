@@ -1,14 +1,16 @@
 -- =====================================================
 -- ZZ COIN v2 - Schéma Supabase complet
--- ⚠️ Si tu as déjà des tables, exécute d'abord les DROP en bas du fichier
+-- ⚠️ Ce script efface TOUTES les données existantes (users, missions, transactions, messages)
+-- et repart de zéro avec le bon schéma. Le compte Zeyn (admin) est recréé à la fin.
 -- Colle ce code dans l'éditeur SQL de Supabase puis clique "Run"
 -- =====================================================
 
--- Nettoyage (optionnel - décommente si tu repars de zéro)
--- DROP TABLE IF EXISTS messages CASCADE;
--- DROP TABLE IF EXISTS transactions CASCADE;
--- DROP TABLE IF EXISTS missions CASCADE;
--- DROP TABLE IF EXISTS users CASCADE;
+-- Nettoyage FORCÉ : on repart de zéro pour éviter tout conflit avec l'ancien schéma v1
+-- (l'ancienne table "transactions" avait des colonnes différentes : user_id au lieu de from_user/to_user)
+DROP TABLE IF EXISTS messages CASCADE;
+DROP TABLE IF EXISTS transactions CASCADE;
+DROP TABLE IF EXISTS missions CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
 
 -- =====================================================
 -- TABLE: users
@@ -93,10 +95,26 @@ CREATE POLICY "public_access_messages" ON messages FOR ALL USING (true) WITH CHE
 -- =====================================================
 -- REALTIME - Active la diffusion en temps réel
 -- =====================================================
-ALTER PUBLICATION supabase_realtime ADD TABLE users;
-ALTER PUBLICATION supabase_realtime ADD TABLE missions;
-ALTER PUBLICATION supabase_realtime ADD TABLE transactions;
-ALTER PUBLICATION supabase_realtime ADD TABLE messages;
+DO $$
+BEGIN
+  ALTER PUBLICATION supabase_realtime ADD TABLE users;
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
+DO $$
+BEGIN
+  ALTER PUBLICATION supabase_realtime ADD TABLE missions;
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
+DO $$
+BEGIN
+  ALTER PUBLICATION supabase_realtime ADD TABLE transactions;
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
+DO $$
+BEGIN
+  ALTER PUBLICATION supabase_realtime ADD TABLE messages;
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
 
 -- =====================================================
 -- Compte admin Zeyn (créé automatiquement, mot de passe à changer après 1ère connexion)
