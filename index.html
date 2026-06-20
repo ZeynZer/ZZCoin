@@ -2,26 +2,38 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no" />
     <meta name="theme-color" content="#0A0F1E" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="ZZCoin" />
+    <meta name="mobile-web-app-capable" content="yes" />
     <link rel="manifest" href="/ZZCoin/manifest.json" />
     <link rel="apple-touch-icon" href="/ZZCoin/icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-    <title>ZZ Bank</title>
+    <title>ZZ Coin</title>
     <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { background: #0A0F1E; font-family: 'Inter', sans-serif; color: #F5F5FF; overflow-x: hidden; }
+      * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+      html, body { background: #0A0F1E; font-family: 'Inter', sans-serif; color: #F5F5FF; overflow-x: hidden; }
+      body { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; overscroll-behavior-y: none; }
+      input, textarea { -webkit-user-select: text; user-select: text; }
+      button { -webkit-user-select: none; touch-action: manipulation; }
       ::-webkit-scrollbar { width: 4px; }
       ::-webkit-scrollbar-track { background: #0A0F1E; }
       ::-webkit-scrollbar-thumb { background: #6C63FF; border-radius: 2px; }
+      * { transition: background-color 0.15s, border-color 0.15s, transform 0.15s, opacity 0.15s; }
     </style>
-    <script type="module" crossorigin src="/ZZCoin/assets/index-BIQgZQSn.js"></script>
+    <script type="module" crossorigin src="/ZZCoin/assets/index-DCgm_EVH.js"></script>
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/ZZCoin/sw.js').catch(() => {})
+        })
+      }
+    </script>
   </body>
 </html>
